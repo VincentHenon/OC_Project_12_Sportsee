@@ -1,0 +1,438 @@
+/* RESET  */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-height: 100vh;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#root {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+
+/* HEADER */
+header {
+  height: 91px;
+  background-color: #020203;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 149px;
+}
+
+.logo {
+  margin-left: 28px;
+  width: 178px;
+}
+
+header nav {
+  width: 100%;
+  margin-right: 91px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 24px;
+  font-weight: 500;
+  color: #FFFFFF;
+}
+
+/* SIDER */
+aside {
+  width: 117px;
+  background-color: #020203;
+}
+
+.siderContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.siderNav {
+  margin-top: 15vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.siderCredits {
+  margin-top: 164px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 12px;
+  color: #FFFFFF;
+  transform: rotate(270deg);
+  white-space: nowrap;
+}
+
+/* MAIN */
+main {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+
+/* HOME */
+.homeWrapper {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow:  13px 13px 30px #d9d9d9,
+             -13px -13px 30px #ffffff;
+}
+
+.homewrapper h2{
+ text-align: center;
+}
+
+.userBtnWrapper {
+  display: flex;
+  gap: 20px;
+}
+
+.userBtn {
+  text-align: center;
+  width: 100Px;
+  color: #FFF;
+  font-weight: 500;
+  border-radius: 10px;
+  padding: 10px 15px;
+  background: #FF0101;
+  box-shadow:  10px 10px 20px #ababab,
+             -10px -10px 20px #ffffff;
+  transition: all .2s ease-in-out;
+}
+
+.userBtn:hover {
+  color: #FBFBFB;
+  background: #e10101;
+  box-shadow:  5px 5px 10px #ababab,
+             -5px -5px 10px #ffffff;
+}
+
+/* DASHBOARD */
+.dashboardContainer {
+  margin-left: 5%;
+  margin-top: 5%;
+}
+
+.dashboardHeader h2{
+  font-family: 'Roboto', sans-serif;
+  color: #020203;
+  font-size: 2.5em;
+}
+
+.dashboardHeader span {
+  color: #FF0101;
+}
+
+.dashboardHeader p {
+  padding-top: 40px;
+  font-size: 1.1em;
+  font-weight: 400;
+}
+
+.chartsContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 1vw;
+  width: 80vw;
+}
+
+.chart-col_1 {
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+  width: 100%;
+}
+
+.chart-col-1-row-2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1vw;
+  width: 100%;
+}
+
+.activityChart {
+  background-color: #fbfbfb;
+  border-radius: 5px;
+}
+
+.nutrientsChart {
+  width: 100%;
+}
+
+/* ACTIVITY COMPONENT*/
+.barChartContainer {
+  width: 100%;
+  border-radius: 5px;
+  background: #FBFBFB;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.02);
+  height: 320px;
+}
+
+.activityToolTip {
+  background-color: #FF0101;
+  padding: 10px 5px;
+}
+
+.activityToolTip p{
+  text-align: center;
+  color: #FBFBFB;
+  padding: 10px 10px;
+  font-size: 12px;
+}
+
+.activityTitle {
+  position: absolute;
+  z-index: 10;
+  color: #020203;
+  font-weight: 500;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+/* NUTRIENT COMPONENT */
+.nutrientsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1vw;
+}
+
+.nutrientContainer {
+  padding: 1vw;
+  background: #fbfbfb;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  gap: 24px;
+  align-items: center;
+}
+
+.nutrientContentContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2px;
+}
+
+.nutrientContentContainer h2 {
+  text-align: left;
+  font-weight: 700;
+  font-size: 20px;
+} 
+
+.nutrientContentContainer p {
+  text-align: left;
+  font-size: 14px;
+  color: #74798C;
+}
+
+/* PERFORMANCE COMPONENT */
+.performanceContainer {
+  background: #282D30;
+}
+
+/* AVERAGE COMPONENT */
+.averageContainer {
+  position: relative;
+  width: 30%;
+  height: 21vh;
+  border-radius: 5px;
+  background: #FF0101;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.02);
+}
+
+.averageXAxis {
+  stroke: #FFFFFF;
+}
+
+.averageToolTip {
+  background-color: #FBFBFB;
+  padding: 10px 7px;
+}
+
+.averageTitle {
+  color: #FBFBFB;
+  font-size: 15px;
+  font-weight: 500;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.labelMin {
+  color: #000;
+  text-align: center;
+  font-family: Roboto;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+/* RADAR COMPONENT */
+.radarContainer {
+  width: 30%;
+  height: 21vh;
+  border-radius: 5px;
+  background: #282D30;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.02);
+  padding: 5px 5px;
+}
+
+/* GOAL COMPONENT */
+.goalContainer {
+  position: relative;
+  width: 30%;
+  height: 21vh;
+  border-radius: 5px;
+  background: #FBFBFB;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.02);
+}
+
+.scoreText {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 10px;
+  margin-top: 10px;
+  color: #20253A;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.goalText {
+  font-family: "Roboto", sans-serif;
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  transform: translate(0, -50%);
+  text-align: left;
+  color: #74798C;
+  font-size: 16px;
+  font-weight: 500;
+  width: 60px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.goalText span {
+  color:#282D30;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.radialBarStyle {
+  fill: #FF0101;
+  background: #FFFFFF;
+}
+
+/* PAGE 404 */
+.page404Wrapper{
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  color: #FF0101;
+  text-align: center;
+}
+
+.page404Big {
+  color: #FBFBFB;
+  font-size: 182px;
+  font-weight: 900;
+  text-shadow: -10px 10px 15px rgba(0,0,0,0.3), 
+               10px -10px 15px rgba(255,255,255,0.8);
+}
+
+.page404Oups {
+  font-size: 32px;
+  color: #ababab;
+  width: 30%;
+}
+
+.page404Home {
+  color: #ababab;
+  font-size: 24px;
+  padding: 10px 15px;
+  background-color: #FFF;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: -5px 5px 15px rgba(0,0,0,0.3), 
+               5px -5px 15px rgba(255,255,255,0.8);
+  transition: all .2s ease;
+}
+
+.page404Home:hover {
+  color: #ababab;
+  background-color: #FFF;
+  box-shadow: -2px 2px 10px rgba(0,0,0,0.3), 
+               2px -2px 10px rgba(255,255,255,0.8);
+}
+
+.serverErrorWrapper {
+  margin-top: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: fit-content;
+  gap:5vh;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5vh;
+  border-radius: 20px;
+  box-shadow: -5px 5px 15px rgba(0,0,0,0.3), 
+               5px -5px 15px rgba(255,255,255,0.8);
+}
+
+.serverErrorTitle {
+  font-size: 68px;
+  color: #FFF;
+  font-weight: 900;
+  text-shadow: -5px 5px 10px rgba(0,0,0,0.3), 
+               5px -5px 10px rgba(255,255,255,0.8);
+}
+
+.serverErrorWrapper p {
+  font-size: 24px;
+  color: #ababab;
+}
