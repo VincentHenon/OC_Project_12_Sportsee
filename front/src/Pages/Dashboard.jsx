@@ -8,45 +8,53 @@ import Nutrients from '../Components/Nutrients'
 import Goals from '../Components/Goals'
 import ServerError from '../Components/ServerError'
 import { getMainData } from '../API/getData'
-import {isDevMode} from '../App'
+import UserMain from '../Model/UserMain'
 
 /**
   * React component for displaying the dashboard page.
   * @returns jsx
 */
-function Dashboard(props) {
-
+function Dashboard() {
   const [mainData, setMainData] = useState()
   const { id } = useParams()
+  const [loading, setLoading] = useState(true)
   
     /**
       * Fetches activity data from the API and updates the component's state.
       * @returns A promise that resolves when the data is fetched and state is updated.
     */
     useEffect(() => {
-        async function fetchData() {
-            try {
-                const apiData = await getMainData(id) 
-                // check devMode to add or not .data to apiData
-                setMainData(isDevMode ? apiData : apiData.data)
-            } catch (error) {
-                console.error("fetching data failed somehow.")
-            }
-        }
-        fetchData()
-    }, [id])
+      async function fetchData() {
+          try {
+              const apiData = await getMainData(id)
+              const userMainInstance = new UserMain(apiData)
+              setMainData(userMainInstance)
+              setLoading(false)
+          } catch (error) {
+              console.error("Fetching data failed somehow.", error)
+              setLoading(false)
+          }
+      }
+      fetchData()
+  }, [id])
 
-  // Fallback where data is not found or takes time
-  if (!mainData || mainData.length === 0) {
+  // Fallback where data is not found
+  if ((!mainData || mainData.length === 0) && !loading) {
     return <ServerError />
   }
-  else {
-    console.log("mainData:" , mainData)
+
+  // when data takes time to load
+  if (loading) {
+    return <div>Chargement des données</div>
+  }
+
+  // when data is loaded
+  if (!loading && mainData) {
     return (
       <div className="dashboardContainer">
         <div className="dashboardHeader">
-          <h2>Bonjour <span>{mainData.userInfos.firstName}</span></h2>
-          <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
+          <h2>Bonjour <span>{mainData.firstName}</span></h2>
+          <p>Félicitations ! Vous avez explosé vos objectifs hier 👏</p>
         </div>
         <div className="chartsContainer">
           <div className="chart-col_1">
@@ -80,10 +88,5 @@ Dashboard.propTypes = {
     })
   })
 }
-
-
-
-
-
 
 export default Dashboard

@@ -9,17 +9,17 @@ import { isDevMode } from '../App'
  * @returns {Promise<object>} The fetched data or local data.
  */
 const fetchData = async (url, localData) => {
-  if (!isDevMode) {
+  if (isDevMode) {
+    // Return the local data if 'isDevMode' is true on App.js otherwise use the API.
+    return localData
+  } else {
     try {
       const response = await axios.get(url)
-      return response.data
+      const res = response.data
+      return res.data
     } catch (e) {
       console.error(e)
-      // return localData real fallback
-    }
-  } else {
-    // Return the local data based on the 'isDevMode' on App.js.
-    return localData
+    }    
   }
 }
 
@@ -43,7 +43,7 @@ export const getActivityData = async (id) => {
   const apiUrl = `http://localhost:3000/user/${id}/activity`
   const localActivityData = USER_ACTIVITY.find(item => item.userId === parseInt(id))
   return fetchData(apiUrl, localActivityData)
-};
+}
 
 /**
  * Fetches average data for a user's sessions.
@@ -54,7 +54,7 @@ export const getAverageData = async (id) => {
   const apiUrl = `http://localhost:3000/user/${id}/average-sessions`
   const localAverageData = USER_AVERAGE_SESSIONS.find(item => item.userId === parseInt(id))
   return fetchData(apiUrl, localAverageData)
-};
+}
 
 /**
  * Fetches performance data for a user.

@@ -12,7 +12,6 @@ function Goals(props) {
 const score = props.todayScore * 100 // format todayScore into %
 const circleScore = props.todayScore * 360 // 12% of 360 degrees
 const scoreData = [{ todayScore: circleScore }]
-console.log("scoreData: ", scoreData)
 
   return (
     <div className='goalContainer'>

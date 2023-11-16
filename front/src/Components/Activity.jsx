@@ -4,15 +4,14 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { ResponsiveContainer, BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
 import { getActivityData } from '../API/getData'
-import { isDevMode } from '../App'
-
+import UserActivity from '../Model/UserActivity'
 
 /**
   * React component for displaying activity data as a bar chart.
   * @returns jsx
 */
 function Activity() {
-
+  const [loading, setLoading] = useState(true)
   const [activityData, setActivityData] = useState([])
   const { id } = useParams()
 
@@ -24,25 +23,35 @@ function Activity() {
       async function fetchData() {
           try {
               const apiData = await getActivityData(id)
-              // check devMode to add or not .data to apiData
-              setActivityData(isDevMode ? apiData : apiData.data)
+              const userActivityInstance = new UserActivity(apiData)
+              setActivityData(userActivityInstance)
+              setLoading(false)
           } catch (error) {
               console.error("data fetching failed somehow.")
+              setLoading(false)
           }
       }
       fetchData()
   }, [id])
 
-  // Fallback where data is not found or takes time
-  if (!activityData || activityData.length === 0) {
-    return <p className=''>Loading</p>
+  // Fallback where data is not found 
+  if ((!activityData || activityData.length === 0) && !loading) {
+    return null
   }
-  else {    
+
+  // when data takes time to load
+  if (loading) {
+    return <div>Chargement des données</div>
+  }
+
+  // when data is loaded
+  if (!loading && activityData) { 
     // format date to number
     for (let i = 0 ; i < activityData.sessions.length ; i ++){
       activityData.sessions[i].day = i + 1
     }
 
+    // tooltip for rechart
     const ActivityToolTip = ({ active, payload }) => {
       if (active && payload && payload.length) {
         return (
@@ -56,6 +65,7 @@ function Activity() {
       return null
     }
 
+    // style for rechart's legend
     const legendStyling = {
       marginRight: 100,
     }

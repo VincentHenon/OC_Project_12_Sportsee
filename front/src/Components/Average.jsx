@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import {XAxis, YAxis, Tooltip, LineChart, Line, ResponsiveContainer} from 'recharts'
 import { useParams } from 'react-router-dom'
-import { isDevMode } from '../App'
 import { getAverageData } from '../API/getData'
+import UserAverage from '../Model/UserAverage'
 
 
 /**
@@ -11,8 +11,8 @@ import { getAverageData } from '../API/getData'
   * @returns jsx
 */
 function Average() {
-
   const [averageData, setAverageData] = useState()
+  const [loading, setLoading] = useState(true)
   const { id } = useParams()
   
     /**
@@ -23,55 +23,29 @@ function Average() {
         async function fetchData() {
             try {
                 const apiData = await getAverageData(id) 
-                // check devMode to add or not .data to apiData
-                setAverageData(isDevMode ? apiData : apiData.data)
+                const userAverageInstance = new UserAverage(apiData)
+                setAverageData(userAverageInstance)
+                setLoading(false)    
             } catch (error) {
                 console.error("data fetching failed somehow.")
+                setLoading(false)
             }
         }
         fetchData()
     }, [id])
 
-  // Fallback where data is not found or takes time
-  if (!averageData || averageData.length === 0) {
-    return <p>Loading</p>
+  // Fallback where data is not found 
+  if ((!averageData || averageData.length === 0) && !loading) {
+    return null
   }
-  else {
-    /**
-     * Function to convert numeric day into the day's 1st letter.
-     * @param {number} day - Numeric representation of the day (1 to 7).
-     * @returns {string} The day's 1st letter.
-    */
-    function convertDay(day) {
-      switch(day) {
-        case 1:
-          return 'L'
-        case 2:
-          return 'M'
-        case 3:
-          return 'M'
-        case 4:
-          return 'J'
-        case 5:
-          return 'V'
-        case 6:
-          return 'S'
-        case 7:
-          return 'D'
-        default:
-          return ''// where day is not a number or not within the cases
-      }
-    }
 
-    const newAverageData = {
-      userId: averageData.userId,
-      sessions: averageData.sessions.map((session) => ({
-        day: convertDay(session.day),
-        sessionLength: session.sessionLength,
-      })),
-    }
-    console.log("newAverageData: " , newAverageData)
+  // when data takes time to load
+  if (loading) {
+    return <div>Chargement des données</div>
+  }
 
+  // when data is loaded
+  if (!loading && averageData) { 
     const AverageToolTip = ({ active, payload }) => {
       if (active && payload && payload.length) {
         return (
@@ -80,7 +54,6 @@ function Average() {
           </div>
         )
       }
-    
       return null
     }
 
@@ -89,7 +62,7 @@ function Average() {
         <p className="averageTitle">Durée moyenne des sessions</p>
         <ResponsiveContainer width="100%" height="100%">
         <LineChart
-          data={newAverageData.sessions}
+          data={averageData.sessions}
           margin={{
             top: 15,
             right: 15,
@@ -97,7 +70,6 @@ function Average() {
             bottom: 15,
           }}
         >
-          
           <XAxis className="averageXAxis" dataKey="day" stroke="#FF0101" tick={{ fontSize: 13, fill: "white"}}/>
           <YAxis hide="true" domain={[-10, 100]}/>
           <Tooltip content={<AverageToolTip />} />
