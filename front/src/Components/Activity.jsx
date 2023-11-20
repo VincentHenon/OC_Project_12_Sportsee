@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { ResponsiveContainer, BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
-import { getActivityData } from '../API/getData'
-import UserActivity from '../Model/UserActivity'
+import { getActivityData } from '../Services/getData'
 
 /**
   * React component for displaying activity data as a bar chart.
@@ -23,8 +22,7 @@ function Activity() {
       async function fetchData() {
           try {
               const apiData = await getActivityData(id)
-              const userActivityInstance = new UserActivity(apiData)
-              setActivityData(userActivityInstance)
+              setActivityData(apiData)
               setLoading(false)
           } catch (error) {
               console.error("data fetching failed somehow.")

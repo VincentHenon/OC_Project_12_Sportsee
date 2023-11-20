@@ -2,9 +2,7 @@ import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import {XAxis, YAxis, Tooltip, LineChart, Line, ResponsiveContainer} from 'recharts'
 import { useParams } from 'react-router-dom'
-import { getAverageData } from '../API/getData'
-import UserAverage from '../Model/UserAverage'
-
+import { getAverageData } from '../Services/getData'
 
 /**
   * React component for displaying average data as a line chart.
@@ -23,8 +21,7 @@ function Average() {
         async function fetchData() {
             try {
                 const apiData = await getAverageData(id) 
-                const userAverageInstance = new UserAverage(apiData)
-                setAverageData(userAverageInstance)
+                setAverageData(apiData)
                 setLoading(false)    
             } catch (error) {
                 console.error("data fetching failed somehow.")

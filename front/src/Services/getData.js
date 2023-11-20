@@ -1,6 +1,10 @@
 import axios from 'axios'
 import { USER_ACTIVITY, USER_MAIN_DATA, USER_AVERAGE_SESSIONS, USER_PERFORMANCE } from '../Assets/Mockups/data'
 import { isDevMode } from '../App'
+import UserMain from '../Model/UserMain'
+import UserActivity from '../Model/UserActivity'
+import UserAverage from '../Model/UserAverage'
+import UserPerformance from '../Model/UserPerformance'
 
 /**
  * Function to fetch data from the API or provide local data based on dev/prod mode.
@@ -31,7 +35,9 @@ const fetchData = async (url, localData) => {
 export const getMainData = async (id) => {
   const apiUrl = `http://localhost:3000/user/${id}`
   const localMainData = USER_MAIN_DATA.find(item => item.id === parseInt(id))
-  return fetchData(apiUrl, localMainData)
+  const data = await fetchData(apiUrl, localMainData)
+  return new UserMain(data)
+
 }
 
 /**
@@ -42,7 +48,8 @@ export const getMainData = async (id) => {
 export const getActivityData = async (id) => {
   const apiUrl = `http://localhost:3000/user/${id}/activity`
   const localActivityData = USER_ACTIVITY.find(item => item.userId === parseInt(id))
-  return fetchData(apiUrl, localActivityData)
+  const data = await fetchData(apiUrl, localActivityData)
+  return new UserActivity(data)
 }
 
 /**
@@ -53,7 +60,8 @@ export const getActivityData = async (id) => {
 export const getAverageData = async (id) => {
   const apiUrl = `http://localhost:3000/user/${id}/average-sessions`
   const localAverageData = USER_AVERAGE_SESSIONS.find(item => item.userId === parseInt(id))
-  return fetchData(apiUrl, localAverageData)
+  const data = await fetchData(apiUrl, localAverageData)
+  return new UserAverage(data)
 }
 
 /**
@@ -64,5 +72,6 @@ export const getAverageData = async (id) => {
 export const getPerformanceData = async (id) => {
   const apiUrl = `http://localhost:3000/user/${id}/performance`
   const localPerformanceData = USER_PERFORMANCE.find(item => item.userId === parseInt(id))
-  return fetchData(apiUrl, localPerformanceData)
+  const data = await fetchData(apiUrl, localPerformanceData)
+  return new UserPerformance(data)
 }

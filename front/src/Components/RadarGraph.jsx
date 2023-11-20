@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useParams } from 'react-router-dom'
 import { Radar, Legend, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts'
-import { getPerformanceData } from '../API/getData'
-import UserPerformance from '../Model/UserPerformance'
+import { getPerformanceData } from '../Services/getData'
 
 function RadarGraph() {
   const [performanceData, setPerformanceData] = useState({ data: [] })
@@ -17,8 +16,7 @@ function RadarGraph() {
     async function fetchData() {
       try {
         const apiData = await getPerformanceData(id)
-        const userPerformanceInstance = new UserPerformance(apiData)
-        setPerformanceData(userPerformanceInstance)
+        setPerformanceData(apiData)
         setLoading(false)
       } catch (error) {
         console.error("fetching data failed somehow.")

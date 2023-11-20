@@ -7,8 +7,7 @@ import Average from '../Components/Average'
 import Nutrients from '../Components/Nutrients'
 import Goals from '../Components/Goals'
 import ServerError from '../Components/ServerError'
-import { getMainData } from '../API/getData'
-import UserMain from '../Model/UserMain'
+import { getMainData } from '../Services/getData'
 
 /**
   * React component for displaying the dashboard page.
@@ -27,8 +26,7 @@ function Dashboard() {
       async function fetchData() {
           try {
               const apiData = await getMainData(id)
-              const userMainInstance = new UserMain(apiData)
-              setMainData(userMainInstance)
+              setMainData(apiData)
               setLoading(false)
           } catch (error) {
               console.error("Fetching data failed somehow.", error)
