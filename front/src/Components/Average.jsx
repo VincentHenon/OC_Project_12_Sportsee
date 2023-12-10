@@ -42,9 +42,10 @@ function Average() {
   }
 
   // when data is loaded
-  if (!loading && averageData) { 
+  if (!loading && averageData) {  
     const AverageToolTip = ({ active, payload }) => {
       if (active && payload && payload.length) {
+        
         return (
           <div className="averageToolTip">
             <p className="labelMin">{`${payload[0].value} min`}</p>
@@ -55,7 +56,7 @@ function Average() {
     }
 
     return (
-      <div className="averageContainer">
+      <div className="averageContainer" >
         <p className="averageTitle">Durée moyenne des sessions</p>
         <ResponsiveContainer width="100%" height="100%">
         <LineChart
@@ -66,14 +67,28 @@ function Average() {
             left: 15,
             bottom: 15,
           }}
+          onMouseMove={(e) => {
+            if (e.isTooltipActive === true) {
+              const chartContainer = document.querySelector(".averageContainer")
+              const chartContainerWidth = chartContainer.clientWidth
+              const positionX = Math.round((e.activeCoordinate.x / chartContainerWidth) * 100)
+              chartContainer.style.backgroundImage = `linear-gradient(to right, #ff0000 ${positionX}%, #d60000 ${positionX}%)`
+            }
+          }}
+          onMouseLeave={() => {
+            const chartContainer = document.querySelector(".averageContainer")
+            chartContainer.style.backgroundImage = 'none'
+          }}  
         >
-          <XAxis className="averageXAxis" dataKey="day" stroke="#FF0101" tick={{ fontSize: 13, fill: "white"}}/>
+          <XAxis className="averageXAxis" dataKey="day" axisLine={false} tickLine={false} tick={{ fontSize: 13, fill: "white"}}/>
           <YAxis hide="true" domain={[-10, 100]}/>
-          <Tooltip content={<AverageToolTip />} />
+          <Tooltip 
+            content={<AverageToolTip /> } 
+            cursor={false}
+          />
           <Line dot={false} type="monotone" dataKey="sessionLength" cornerRadius={5} strokeWidth={2} stroke="#FFFFFF" />
-          
         </LineChart>
-      </ResponsiveContainer>
+        </ResponsiveContainer>
       </div>
     )
   }

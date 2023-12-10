@@ -323,7 +323,7 @@ main {
   width: 30%;
   height: 21vh;
   border-radius: 5px;
-  background: #FBFBFB;
+  background-color: #FBFBFB;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.02);
 }
 
@@ -342,18 +342,22 @@ main {
   font-family: "Roboto", sans-serif;
   position: absolute;
   top: 50%;
-  left: 40%;
-  transform: translate(0, -50%);
-  text-align: left;
+  left: 50%;
+  transform: translate(-50%, -50%);
   color: #74798C;
   font-size: 16px;
   font-weight: 500;
-  width: 60px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
   margin-left: auto;
   margin-right: auto;
+  background: white;
+  text-align: center;
+  padding: 10%;
 }
 
-.goalText span {
+.goalText :first-child {
   color:#282D30;
   font-size: 26px;
   font-weight: 700;
@@ -361,7 +365,6 @@ main {
 
 .radialBarStyle {
   fill: #FF0101;
-  background: #FFFFFF;
 }
 
 /* PAGE 404 */

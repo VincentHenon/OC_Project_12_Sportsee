@@ -73,8 +73,6 @@ function Activity() {
         <p className='activityTitle'>Activité quotidienne</p> 
         <ResponsiveContainer width="100%" height="100%">
           <BarChart className='barChartComponent'
-              // width={835}
-              // height={320}
               data={activityData.sessions}
               margin={{
                 top: 10,
@@ -82,17 +80,17 @@ function Activity() {
                 left: 10,
                 bottom: 10,
               }}
-              barGap={8} 
-              barCategoryGap={1}
+              barGap={1} 
+              barCategoryGap={40}
             >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="day" tickLine={false} dy={15}/>
-              <YAxis yAxisId="calories" dataKey="calories" hide={true} />
-              <YAxis yAxisId="kilogram" dataKey="kilogram" axisLine={false} orientation="right" tickLine={false} tickCount={3} type="number" tick="false" domain={['dataMin - 1', 'dataMax + 1']} />
-              <Tooltip content={<ActivityToolTip />} />
-              <Legend className='barChartLegend' verticalAlign="top" height={80} align="right" iconType="circle" iconSize={8} style={legendStyling}/>
-              <Bar yAxisId="kilogram" dataKey="kilogram" name="Poids (kg)" radius={[20, 20, 0, 0]} maxBarSize={10} fill="#282D30" activeBar={<Rectangle fill="#282D30" stroke="#282D30" />} />
-              <Bar yAxisId="calories" dataKey="calories" name="Calories brûlées (kCal)" radius={[20, 20, 0, 0]} maxBarSize={10} fill="#E60000" activeBar={<Rectangle fill="#E60000" stroke="#E60000" />} />
+              <CartesianGrid strokeDasharray="3 3" vertical={false}/>
+              <XAxis dataKey="day" tickLine={false} dy={10} scale="point" padding={{left: 20, right: 20}}/>
+              <YAxis yAxisId="calories" dataKey="calories" orientation="left" tickCount={3} hide={true} />
+              <YAxis yAxisId="kilogram" dataKey="kilogram" orientation="right" axisLine={false} tickLine={false} tickCount={1} type="number" tick="false" domain={['dataMin - 1', 'dataMax + 1']}/>
+              <Tooltip cursor={false} content={<ActivityToolTip />} />
+              <Legend verticalAlign="top" height={80} align="right" iconType="circle" iconSize={8} style={legendStyling}/>
+              <Bar yAxisId="kilogram" dataKey="kilogram" radius={[20, 20, 0, 0]} maxBarSize={10} fill="#282D30" activeBar={<Rectangle fill="#282D30" stroke="#282D30" />} name="Poids (kg)" />
+              <Bar yAxisId="calories" dataKey="calories" radius={[20, 20, 0, 0]} maxBarSize={10} fill="#E60000" activeBar={<Rectangle fill="#E60000" stroke="#E60000" name="Calories brûlées (kCal)" />} />
           </BarChart>
         </ResponsiveContainer>
       </div>

@@ -16,10 +16,31 @@ const scoreData = [{ todayScore: circleScore }]
   return (
     <div className='goalContainer'>
       <p className='scoreText'>Score</p>
-      <div className='goalText'><p><span>{score}% </span>de votre objectif</p></div>
-      <ResponsiveContainer width="100%" height="100%"> 
-          <RadialBarChart cx="50%" cy="50%" innerRadius="65%" outerRadius="75%" barSize={10} data={scoreData} startAngle={-270} endAngle={-270 + circleScore}>
-            <RadialBar className='radialBarStyle' cornerRadius={5} clockWise dataKey="todayScore"/>
+      
+      <div className='goalText'>
+        <p>{score}% </p>
+        <p>de votre</p>
+        <p>objectif</p>
+      </div>
+      <ResponsiveContainer width="100%" height="100%" > 
+          <RadialBarChart 
+            cx="50%" 
+            cy="50%" 
+            innerRadius="55" 
+            outerRadius="80" 
+            startAngle={-270} 
+            endAngle={-270 + circleScore}
+            fill='#FF000'
+            data={scoreData} 
+            barSize={10} 
+            >
+            <RadialBar 
+              className='radialBarStyle' 
+              clockWise={true}
+              fill='#FF000'
+              dataKey="todayScore"
+              cornerRadius={5}
+            />
           </RadialBarChart>
       </ResponsiveContainer>
     </div>

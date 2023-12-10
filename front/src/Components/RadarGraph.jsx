@@ -76,7 +76,6 @@ function RadarGraph() {
               left: 10,
               bottom: 10
             }}>
-            {/* <PolarGrid gridType='polygon' radialLines={false} polarRadius={[0, 10, 30, 50, 70, 88]}/>  */}
             <PolarGrid gridType='polygon' radialLines={false} /> 
             <PolarAngleAxis dataKey="kind" tick={{ fontSize: 12, fill: "#FFFFFF" }} />
 
